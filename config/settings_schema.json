@@ -35,5 +35,35 @@
         "content": "Maximum logo dimensions are 940px wide by 300px high.Your uploaded file will be resized to fit within those constraints.Need a full-width banner? Upload an image with a width of 940px, and a height of 300px or less."
       }
     ]
-  }
+  },
+  {
+    "name": "About Page",
+    "settings":[
+      {
+        "type": "image_picker",
+        "id": "about_img",
+        "label": "About Page Image"
+      }
+    ]
+  },
+    {
+      "name": "Contact Page",
+      "settings": [
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number"
+        },
+        {
+          "type": "text",
+          "id": "fax",
+          "label": "Fax Number"
+        },
+         {
+          "type": "text",
+          "id": "email",
+          "label": "Email"
+        }
+      ]
+    }
 ]
