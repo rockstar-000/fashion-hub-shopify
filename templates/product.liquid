@@ -1,0 +1,99 @@
+{% assign short_description = product.description | split: "Product Description" | first %}
+{% assign product_description = product.description | split: "Product Description" | last | split: "Specifications" | first %}
+{% assign specifications = product.description | split: "Specifications" | last %}
+
+<script type="text/javascript">
+  window.product = {{product | json}} || {};
+</script>
+
+<section class="single-product">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">{{product.title}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row pb-5">
+      <div class="col-md-5">
+        <div class="single-product-images">
+          {% for image in product.images %}
+            <div data-thumb="{{image.src | img_url: '1920x'}}">
+              <img class="img-fluid" src="{{image.src | img_url: '1920x'}}">
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="single-product-details">
+          <h2>{{product.title}}</h2>
+          <p class="product-price">{{product.price | money}}</p>
+          
+          <p class="product-description">
+            {{short_description}}
+          </p>
+
+          <form method="post" action="/cart/add">
+            {% unless product.has_only_default_variant %}
+              {% for product_option in product.options_with_values %}
+                <div class="product-category">
+                  <span>{{product_option.name}}</span>
+                  <select class="form-control" data-index="option{{forloop.index}}">
+                    {% for value in product_option.values %}
+                      <option value="{{value | escape}}" {% if product_option.selected_value == value %} selected="selected" {% endif %}>{{value}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+
+            <div class="product-quantity">
+              <span>Quantity:</span>
+              <input min="1" type="number" id="quantity" name="quantity" value="1" />
+            </div>
+            <div class="product-category">
+              <span>Categories:</span>
+              <ul>
+                {% for collection in product.collections %}
+                  <li><a href="{{collection.url}}">{{collection.title}}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <input type="hidden" id="variant-id" name="id" value={{product.variants.first.id}}>
+            <input type="submit" value="Add to Cart" class="btn btn-main">
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Specifications</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h4>Product Description</h4>
+            <p>{{product_description}}</p>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            {{specifications}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,51 +1,61 @@
-  <section class="top-header">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-xs-12 col-sm-4">
-          <div class="contact-number">
-            <i class="fa fa-phone"></i>
-            <span>0129- 12323-123123</span>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-xs-12 col-sm-4">
-          <!-- Site Logo -->
-          <div class="logo text-center">
-            <a href="index.html">
-              <!-- replace logo here -->
-              <svg width="205px" height="29px" viewbox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40" font-family="AustinBold, Austin" font-weight="bold">
-                  <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
-                    <text id="fashion">
-                      <tspan x="108.94" y="325">FASHION</tspan>
-                    </text>
-                  </g>
-                </g>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-4 col-xs-12 col-sm-4">
-          <ul class="top-menu list-inline float-right">
-            <li class="list-inline-item"><a href="cart.html"><i class="fa fa-shopping-cart"></i>Cart</a></li>
-            <li class="list-inline-item"><a href="login.html"><i class="fa fa-sign-in"></i>Login</a></li>
-          </ul>
+<section class="top-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-xs-12 col-sm-4">
+        <div class="contact-number">
+          <i class="fa fa-phone"></i>
+          <span>01818448735</span>
         </div>
       </div>
-    </div>
-  </section>
-  {% include 'menu' %}
 
-  {% schema %}
+      <div class="col-md-4 col-xs-12 col-sm-4">
+        <!-- Site Logo -->
+        <div class="logo text-center">
+          <a href="index.html">
+            <!-- replace logo here -->
+            <svg width="205px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40" font-family="AustinBold, Austin" font-weight="bold">
+                <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
+                  <text id="fashion">
+                    <tspan x="108.94" y="325">FASHOP</tspan>
+                  </text>
+                </g>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12 col-sm-4">
+        <ul class="top-menu list-inline float-right">
+          <li class="list-inline-item"><a href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+
+          {% if shop.customer_accounts_enabled %}
+            {% if customer %}
+              <li class="list-inline-item"><a href="/account"><i class="fa fa-user"></i>Your Account</a></li>
+              <li class="list-inline-item"><a href="/account"><i class="fa fa-sign-out"></i>Sign out</a></li>
+            {% else %}
+              <li class="list-inline-item"><a href="/account/login"><i class="fa fa-sign-in"></i>Login</a></li>
+            {% endif %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% include 'menu' %}
+
+{% schema %}
   {
     "name": "Main Menu",
     "settings": [
       {
-      "type": "link_list",
-      "id": "main_linklist",
-      "label": "Menu",
-      "default": "main-menu",
-    }
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu"
+      }
     ]
   }
-  {% endschema %}
+{% endschema %}
